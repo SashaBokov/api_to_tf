@@ -6,7 +6,6 @@ package provider
 import (
 	"context"
 	"fmt"
-	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-framework-validators/mapvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/path"
@@ -134,7 +133,7 @@ func (r *RuntimeGroup) Create(ctx context.Context, req resource.CreateRequest, r
 
 	data.ControlPlaneEndpoint = types.StringValue(createResp.Config.ControlPlaneEndpoint)
 	data.TelemetryEndpoint = types.StringValue(createResp.Config.TelemetryEndpoint)
-	data.Id = types.StringValue(uuid.NewString())
+	data.Id = data.Name
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
